@@ -2,6 +2,16 @@ from typing import List
 import math
 
 
+class Node:
+    def __init__(self, value) -> None:
+        self.value = value
+        self.left = None
+        self.right = None
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class BinaryTree:
 
     def __init__(self, values: List) -> None:
@@ -10,11 +20,15 @@ class BinaryTree:
                 "cannot instantiate empty binary tree, a root value is required"
             )
 
-        self.root = values[0]
-        self._tree: List = values
+        self._tree: Node = self._build_tree(values)
+        self.root = self._tree
+        # build tree here
         self._nodes: int = len(values)
         self.height: int = int(math.log(self._nodes, 2)) + 1
         self._index: int = 0
+
+    def _build_tree(self, values: List) -> Node:
+        return Node(values[0])
 
     def __len__(self) -> int:
         return len(self._tree)
