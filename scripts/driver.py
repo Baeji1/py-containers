@@ -1,8 +1,49 @@
-import os
-from pathlib import Path
+from typing import List
+import math
+
+
+class BinaryTree:
+
+    def __init__(self, values: List) -> None:
+        if len(values) == 0:
+            raise ValueError(
+                "cannot instantiate empty binary tree, a root value is required"
+            )
+
+        self.root = values[0]
+        self._tree: List = values
+        self._nodes: int = len(values)
+        self.height: int = int(math.log(self._nodes, 2)) + 1
+        self._index: int = 0
+
+    def __len__(self) -> int:
+        return len(self._tree)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self._index >= self._nodes:
+            self._index = 0
+            raise StopIteration
+        value = self._tree[self._index]
+        self._index += 1
+        return value
+
+    def __str__(self) -> str:
+        return f"root: {self.root}  size: {self._nodes}"
+
 
 def main():
-    print('done')
+    test_values: List[int] = [1, 2, 3, 4, 5, 6, 7, 8]
+    tree = BinaryTree(test_values)
+    print(len(tree))
+    for node in tree:
+        print(node)
+    print("done")
+    for node in tree:
+        print(node)
+
 
 if __name__ == "__main__":
     main()
